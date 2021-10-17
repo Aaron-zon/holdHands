@@ -4,31 +4,62 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { pxToDp } from '../../../utils/styleKits'
 import validator from '../../../utils/validator'
+import request from '../../../utils/request';
+import { ACCOUNT_LOGIN } from '../../../utils/pathMap'
+import { Toast } from 'teaset';
 
 class Login extends React.Component {
     state = {
         // 手机号码
-        phoneNumber: "1591222312",
+        phoneNumber: "159121",
         // 手机号码是否合法
         phoneValid: true
     }
+
+    constructor() {
+        super();
+        Toast.message('Toast message');
+        // this.showCustom();
+    }
+
+    // static customKey = null;
+
+    // showCustom() {
+    //     if (ToastExample.customKey) return;
+    //     ToastExample.customKey = Toast.show({
+    //         text: 'Toast custom',
+    //         position: 'top',
+    //         duration: 1000000,
+    //     });
+    // }
+    
+    // hideCustom() {
+    //     if (!ToastExample.customKey) return;
+    //     Toast.hide(ToastExample.customKey);
+    //     ToastExample.customKey = null;
+    // }
+
     /** 手机号码修改时触发 */
     phoneNumberChangeText = (phoneNumber) => {
         this.setState({phoneNumber})
     }
+
     /** 点击手机小键盘【完成】时触发 */
-    phoneNumberSubmitEditing = () => {
+    phoneNumberSubmitEditing = async() => {
         const {phoneNumber} = this.state;
+        // 1.对手机号码的合法性进行校验 - 正则
         const phoneValid = validator.validatePhone(phoneNumber);
         this.setState({phoneValid});
-        
-        // 1.对手机号码的合法性进行校验 - 正则
+
+        // 1.1.不通过提示
         if (!phoneValid) {
             return ;
         }
-        // 1.1.不通过提示
 
         // 2.通过了，将手机号后台发送到对应接口 ->获取验证码
+        const res = await request.post(ACCOUNT_LOGIN, {
+            phone: phoneNumber
+        })
 
         // 3.将登录页面接换成填写验证码的页面
     }
@@ -63,7 +94,7 @@ class Login extends React.Component {
                                 value={phoneNumber}
                                 inputStyle={{color:"#333"}}
                                 leftIcon={
-                                    <Icon name='phone' size={pxToDp(20)} color='#ccc'/>
+                                    <Icon name='phone' size={pxToDp(24)} color='#333'/>
                                 }
                                 onChangeText={this.phoneNumberChangeText}
                                 onSubmitEditing={this.phoneNumberSubmitEditing}
