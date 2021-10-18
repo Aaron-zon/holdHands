@@ -6,38 +6,14 @@ import { pxToDp } from '../../../utils/styleKits'
 import validator from '../../../utils/validator'
 import request from '../../../utils/request';
 import { ACCOUNT_LOGIN } from '../../../utils/pathMap'
-import { Toast } from 'teaset';
 
 class Login extends React.Component {
     state = {
         // 手机号码
-        phoneNumber: "159121",
+        phoneNumber: "159121222",
         // 手机号码是否合法
         phoneValid: true
     }
-
-    constructor() {
-        super();
-        Toast.message('Toast message');
-        // this.showCustom();
-    }
-
-    // static customKey = null;
-
-    // showCustom() {
-    //     if (ToastExample.customKey) return;
-    //     ToastExample.customKey = Toast.show({
-    //         text: 'Toast custom',
-    //         position: 'top',
-    //         duration: 1000000,
-    //     });
-    // }
-    
-    // hideCustom() {
-    //     if (!ToastExample.customKey) return;
-    //     Toast.hide(ToastExample.customKey);
-    //     ToastExample.customKey = null;
-    // }
 
     /** 手机号码修改时触发 */
     phoneNumberChangeText = (phoneNumber) => {
@@ -46,6 +22,7 @@ class Login extends React.Component {
 
     /** 点击手机小键盘【完成】时触发 */
     phoneNumberSubmitEditing = async() => {
+
         const {phoneNumber} = this.state;
         // 1.对手机号码的合法性进行校验 - 正则
         const phoneValid = validator.validatePhone(phoneNumber);
