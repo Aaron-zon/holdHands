@@ -3,9 +3,10 @@ import { View, Text, Image, StatusBar, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { pxToDp } from '../../../utils/styleKits'
+import { ACCOUNT_LOGIN } from '../../../utils/pathMap';
 import validator from '../../../utils/validator'
 import request from '../../../utils/request';
-import { ACCOUNT_LOGIN } from '../../../utils/pathMap'
+import LGButton from '../../../components/LGButton';
 
 class Login extends React.Component {
     state = {
@@ -78,6 +79,10 @@ class Login extends React.Component {
                                 errorStyle={{ color: 'red' }}
                                 errorMessage={phoneValid ? '': '手机号码不正确'}
                             />
+                        </View>
+                        {/* 登录按钮 */}
+                        <View style={{width:"75%", height:pxToDp(30), alignSelf:'center'}}>
+                            <LGButton style={{borderRadius:20}}>登录</LGButton>
                         </View>
                     </View>
                 </View>
