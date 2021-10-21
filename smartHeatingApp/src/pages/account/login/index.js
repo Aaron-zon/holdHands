@@ -11,7 +11,7 @@ import LGButton from '../../../components/LGButton';
 class Login extends React.Component {
     state = {
         // 手机号码
-        phoneNumber: "159121222",
+        phoneNumber: "15912122211",
         // 手机号码是否合法
         phoneValid: true
     }
@@ -23,13 +23,12 @@ class Login extends React.Component {
 
     /** 点击手机小键盘【完成】时触发 */
     phoneNumberSubmitEditing = async() => {
-
         const {phoneNumber} = this.state;
-        // 1.对手机号码的合法性进行校验 - 正则
+        // // 1.对手机号码的合法性进行校验 - 正则
         const phoneValid = validator.validatePhone(phoneNumber);
         this.setState({phoneValid});
 
-        // 1.1.不通过提示
+        // // 1.1.不通过提示
         if (!phoneValid) {
             return ;
         }
@@ -37,6 +36,8 @@ class Login extends React.Component {
         // 2.通过了，将手机号后台发送到对应接口 ->获取验证码
         const res = await request.post(ACCOUNT_LOGIN, {
             phone: phoneNumber
+        }).then((res) => {
+            console.log(res);
         })
 
         // 3.将登录页面接换成填写验证码的页面
@@ -82,7 +83,7 @@ class Login extends React.Component {
                         </View>
                         {/* 登录按钮 */}
                         <View style={{width:"75%", height:pxToDp(30), alignSelf:'center'}}>
-                            <LGButton style={{borderRadius:20}}>登录</LGButton>
+                            <LGButton style={{borderRadius:20}} onPress={this.phoneNumberSubmitEditing}>获取验证码</LGButton>
                         </View>
                     </View>
                 </View>

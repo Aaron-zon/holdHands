@@ -1,7 +1,6 @@
 /**
  * 配置axios
  */
-
 import axios from 'axios';
 import {BASE_URI} from './pathMap';
 import Toast from './Toast';
@@ -28,7 +27,8 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     Toast.hideLoding();
-    return response;
+
+    return response.data;
 }, function (error) {
     // 对响应错误做点什么
     consolelog('error')
@@ -38,5 +38,5 @@ instance.interceptors.response.use(function (response) {
 
 export default {
     get: instance.get,
-    post: instance.post
+    post: instance.post,
 }
