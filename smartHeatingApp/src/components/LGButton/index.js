@@ -12,7 +12,7 @@ class Index extends Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={this.props.onPress} style={{width:"100%", height:"100%",overflow:'hidden', ...this.props.style}}>
+            <TouchableOpacity disabled={this.props.disabled ? true : false} onPress={this.props.onPress} style={{width:"100%", height:"100%",overflow:'hidden', ...this.props.style}}>
                 <LinearGradient start={{x:0,y:0}} end={{x:1,y:0}} 
                     colors={['#9b63cd', '#e0708c']} style={styles.linearGradient}>
                     <Text style={{...styles.buttonText, ...this.props.textStyle}}>
